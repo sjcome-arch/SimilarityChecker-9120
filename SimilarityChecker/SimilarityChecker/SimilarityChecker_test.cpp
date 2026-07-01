@@ -3,50 +3,31 @@
 
 using namespace testing;
 
-TEST(SimilarityChecker, test) {
-
+class SimilarityFixture : public testing::Test {
+public:
 	Similarity sim;
-	InputStr inputStr;
-	inputStr.str1 = "ABC";
-	inputStr.str2 = "ABC";
+};
 
-	sim.checkStringLength(inputStr);
-
-	EXPECT_EQ(sim.checkStringLength(inputStr), 60);
+TEST_F(SimilarityFixture, test) {
+	EXPECT_DOUBLE_EQ(sim.getLenghtPoint("ABC", "ABC"), 60);
 }
 
-TEST(SimilarityChecker, test1) {
-
-	Similarity sim;
-	InputStr inputStr;
-	inputStr.str1 = "ABCDEF";
-	inputStr.str2 = "ABC";
-
-	sim.checkStringLength(inputStr);
-
-	EXPECT_EQ(sim.checkStringLength(inputStr), 0);
+TEST_F(SimilarityFixture, test1) {
+	EXPECT_DOUBLE_EQ(sim.getLenghtPoint("ABC", "DEF"), 60);
 }
 
-TEST(SimilarityChecker, test2) {
-
-	Similarity sim;
-	InputStr inputStr;
-	inputStr.str1 = "A";
-	inputStr.str2 = "AB";
-
-	sim.checkStringLength(inputStr);
-
-	EXPECT_EQ(sim.checkStringLength(inputStr), 0);
+TEST_F(SimilarityFixture, test2) {
+	EXPECT_DOUBLE_EQ(sim.getLenghtPoint("ABCDEF", "ABC"), 0);
 }
 
-TEST(SimilarityChecker, test3) {
+TEST_F(SimilarityFixture, test3) {
+	EXPECT_DOUBLE_EQ(sim.getLenghtPoint("A", "AB"), 0);
+}
 
-	Similarity sim;
-	InputStr inputStr;
-	inputStr.str1 = "AAA";
-	inputStr.str2 = "BA";
+TEST_F(SimilarityFixture, test4) {
+	EXPECT_DOUBLE_EQ(sim.getLenghtPoint("AAA", "BA"), 30);
+}
 
-	sim.checkStringLength(inputStr);
-
-	EXPECT_EQ(sim.checkStringLength(inputStr), 30);
+TEST_F(SimilarityFixture, test5) {
+	EXPECT_DOUBLE_EQ(sim.getLenghtPoint("ABCDEFGHIJ", "ABCDEFGHI"), 53.333333333333329);  // 10, 9  
 }
