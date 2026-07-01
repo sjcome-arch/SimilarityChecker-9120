@@ -5,5 +5,12 @@ using namespace testing;
 
 TEST(SimilarityChecker, test) {
 
-	EXPECT_EQ(1, 1);
+	Similarity sim;
+	InputStr inputStr;
+	inputStr.str1 = "ABC";
+	inputStr.str2 = "ABC";
+
+	sim.checkStringLength(inputStr);
+
+	EXPECT_EQ(sim.checkStringLength(inputStr), 60);
 }
