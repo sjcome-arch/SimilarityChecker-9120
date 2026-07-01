@@ -7,15 +7,23 @@ struct InputStr {
 	string str2;
 };
 
+
 class Similarity{
 public:
-	int checkStringLength(const InputStr& inputStr) {
-
-		if( inputStr.str1.size() == inputStr.str2.size())
+	size_t checkStringLength(const InputStr& inputStr) {
+		size_t longer, shorter;
+		if (inputStr.str1.size() == inputStr.str2.size())
 			return 60;
 
-		if (inputStr.str1.size() >= inputStr.str2.size() * 2
-			|| inputStr.str2.size() >= inputStr.str1.size() * 2)
-			return 0;
+		if (inputStr.str1.size() > inputStr.str2.size()) {
+			longer = inputStr.str1.size();
+			shorter = inputStr.str2.size();
+		}
+		else {
+			shorter = inputStr.str1.size();
+			longer = inputStr.str2.size();
+		}
+
+		return (1 - ((double)(longer - shorter) / shorter)) * 60;
 	}
 };
